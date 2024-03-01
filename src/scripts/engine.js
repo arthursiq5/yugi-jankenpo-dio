@@ -67,16 +67,43 @@ async function createCardImage(randomIdCard, fieldSide) {
     cardImage.classList.add('card');
 
     if (fieldSide === players.player1) {
-        // cardImage.addEventListener('click', () => setCardField(cardImage.getAttribute('data-id')));
+        cardImage.addEventListener('click', () => setCardField(cardImage.getAttribute('data-id')));
         cardImage.addEventListener('mouseover', () => drawSelectCard(randomIdCard))
     }
 
-    cardImage.addEventListener("click", () => {
-        // setCardsField(cardImage.getAttribute("data-id"));
-    });
+    cardImage.addEventListener("click", () => setCardField(cardImage.getAttribute("data-id")));
 
 
     return cardImage;
+}
+
+async function setCardField(cardId) {
+    let computerCardId = await getRandomCardId();
+    state.fieldCards.player.style.display = 'block'
+    state.fieldCards.computer.style.display = 'block'
+
+    state.fieldCards.player.src = cardData[cardId].img;
+    state.fieldCards.computer.src = cardData[computerCardId].img;
+
+    let duelResults = await checkDuelResults(cardId, computerCardId)
+}
+
+async function checkDuelResults(playerCardId, ComputerCardId) {
+    let duelResult = "Empate";
+    let playerCard = cardData[playerCardId];
+
+
+    if(playerCard.WinOf.includes(ComputerCardId)) {
+        alert('GANHOU')
+        state.score.playerScore++;
+    }
+
+    if(playerCard.LoseOf.includes(ComputerCardId)) {
+        alert('PERDEU')
+        state.score.computerScore++;
+    }
+
+    return duelResult
 }
 
 async function drawSelectCard(index) {
