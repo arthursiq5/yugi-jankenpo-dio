@@ -84,7 +84,30 @@ async function setCardField(cardId) {
     state.fieldCards.computer.src = cardData[computerCardId].img;
 
     let duelResults = await checkDuelResults(cardId, computerCardId)
+
+    await updateScore();
+    await drawButton(duelResults);
 }
+
+async function drawButton(text) {
+    state.actions.button.innerText = text;
+    state.actions.button.style.display = "block";
+}
+
+async function updateScore() {
+    state.score.scoreBox.innerHTML = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`
+}
+
+async function resetDuel() {
+    state.cardSprites.avatar.src = "";
+    state.actions.button.style.display = "none";
+
+    state.fieldCards.player.style.display = "none";
+    state.fieldCards.computer.style.display = "none";
+
+    init();
+}
+
 
 async function checkDuelResults(playerCardId, ComputerCardId) {
     let duelResult = "Empate";
@@ -137,7 +160,8 @@ async function playAudio(status) {
     } catch {}
 }
 
-(function() {
+function init() {
     drawCards(5, players.player1)
     drawCards(5, players.computer)
-})();
+}
+init()
