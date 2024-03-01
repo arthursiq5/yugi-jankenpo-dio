@@ -15,15 +15,14 @@ const state = {
     },
     actions: {
         button: document.getElementById('next-duel'),
-    }
+    },
+    playerSides: {
+        player1: "player-cards",
+        player1BOX: document.getElementById('player-cards'),
+        computer: "computer-cards",
+        computerBOX: document.getElementById('computer-cards'),
+    },
 };
-
-const players = {
-    player1: "player-cards",
-    player1BOX: document.getElementById('player-cards'),
-    computer: "computer-cards",
-    computerBOX: document.getElementById('computer-cards'),
-}
 
 const getImagePath = (imgName) => `src/assets/icons/${imgName}.png`;
 
@@ -66,7 +65,7 @@ async function createCardImage(randomIdCard, fieldSide) {
     cardImage.setAttribute('data-id', randomIdCard);
     cardImage.classList.add('card');
 
-    if (fieldSide === players.player1) {
+    if (fieldSide === state.playerSides.player1) {
         cardImage.addEventListener('click', () => setCardField(cardImage.getAttribute('data-id')));
         cardImage.addEventListener('mouseover', () => drawSelectCard(randomIdCard))
     }
@@ -145,11 +144,11 @@ async function checkDuelResults(playerCardId, ComputerCardId) {
 }
 
 async function removeAllCardsImages() {
-    let cards = players.player1BOX;
+    let cards = state.playerSides.player1BOX;
     let imgElements = cards.querySelectorAll("img");
     imgElements.forEach(img => img.remove());
 
-    cards = players.computerBOX;
+    cards = state.playerSides.computerBOX;
     imgElements = cards.querySelectorAll("img");
     imgElements.forEach(img => img.remove());
 }
@@ -177,7 +176,7 @@ async function playAudio(status) {
 
 function init() {
     showHiddenCardFieldsImages(false)
-    drawCards(5, players.player1)
-    drawCards(5, players.computer)
+    drawCards(5, state.playerSides.player1)
+    drawCards(5, state.playerSides.computer)
 }
 init()
