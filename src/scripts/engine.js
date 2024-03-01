@@ -75,6 +75,7 @@ async function createCardImage(randomIdCard, fieldSide) {
 }
 
 async function setCardField(cardId) {
+    removeAllCardsImages()
     let computerCardId = await getRandomCardId();
     state.fieldCards.player.style.display = 'block'
     state.fieldCards.computer.style.display = 'block'
@@ -103,6 +104,16 @@ async function checkDuelResults(playerCardId, ComputerCardId) {
     }
 
     return duelResult
+}
+
+async function removeAllCardsImages() {
+    let cards = players.player1BOX;
+    let imgElements = cards.querySelectorAll("img");
+    imgElements.forEach(img => img.remove());
+
+    cards = players.computerBOX;
+    imgElements = cards.querySelectorAll("img");
+    imgElements.forEach(img => img.remove());
 }
 
 async function drawSelectCard(index) {
