@@ -77,8 +77,7 @@ async function createCardImage(randomIdCard, fieldSide) {
 async function setCardField(cardId) {
     removeAllCardsImages()
     let computerCardId = await getRandomCardId();
-    state.fieldCards.player.style.display = 'block'
-    state.fieldCards.computer.style.display = 'block'
+    showHiddenCardFieldsImages(true)
 
     state.fieldCards.player.src = cardData[cardId].img;
     state.fieldCards.computer.src = cardData[computerCardId].img;
@@ -108,6 +107,15 @@ async function resetDuel() {
     init();
 }
 
+async function showHiddenCardFieldsImages(value) {
+    if(value === true) {
+        state.fieldCards.player.style.display = "block";
+        state.fieldCards.computer.style.display = "block";
+    } else {
+        state.fieldCards.player.style.display = "none";
+        state.fieldCards.computer.style.display = "none";
+    }
+}
 
 async function checkDuelResults(playerCardId, ComputerCardId) {
     let duelResult = "Empate";
@@ -161,6 +169,7 @@ async function playAudio(status) {
 }
 
 function init() {
+    showHiddenCardFieldsImages(false)
     drawCards(5, players.player1)
     drawCards(5, players.computer)
 }
