@@ -78,6 +78,7 @@ async function setCardField(cardId) {
     removeAllCardsImages()
     let computerCardId = await getRandomCardId();
     showHiddenCardFieldsImages(true)
+    hiddenCardsDetails()
 
     state.fieldCards.player.src = cardData[cardId].img;
     state.fieldCards.computer.src = cardData[computerCardId].img;
@@ -115,6 +116,12 @@ async function showHiddenCardFieldsImages(value) {
         state.fieldCards.player.style.display = "none";
         state.fieldCards.computer.style.display = "none";
     }
+}
+
+async function hiddenCardsDetails() {
+    state.cardSprites.avatar.src = "";
+    state.cardSprites.name.innerText = "";
+    state.cardSprites.type.innerText = "";
 }
 
 async function checkDuelResults(playerCardId, ComputerCardId) {
