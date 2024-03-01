@@ -71,9 +71,6 @@ async function createCardImage(randomIdCard, fieldSide) {
         cardImage.addEventListener('mouseover', () => drawSelectCard(randomIdCard))
     }
 
-    cardImage.addEventListener("click", () => setCardField(cardImage.getAttribute("data-id")));
-
-
     return cardImage;
 }
 
@@ -94,12 +91,14 @@ async function checkDuelResults(playerCardId, ComputerCardId) {
 
 
     if(playerCard.WinOf.includes(ComputerCardId)) {
-        alert('GANHOU')
+        duelResult = "GANHOU";
+        await playAudio("win");
         state.score.playerScore++;
     }
 
     if(playerCard.LoseOf.includes(ComputerCardId)) {
-        alert('PERDEU')
+        duelResult = "PERDEU";
+        await playAudio("lose");
         state.score.computerScore++;
     }
 
@@ -118,6 +117,13 @@ async function drawCards(cardNumbers, fieldSide) {
         const cardImage = await createCardImage(randomIdCard, fieldSide);
         document.getElementById(fieldSide).appendChild(cardImage);
     }
+}
+
+async function playAudio(status) {
+    const audio = new Audio(`./src/assets/audios/${status}.wav`);
+    try {
+        audio.play();
+    } catch {}
 }
 
 (function() {
