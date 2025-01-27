@@ -20,12 +20,12 @@
     <title>Yu-Gi-Oh! Jo-Ken-Po game</title>
 </head>
 <body>
-    <audio id="bgm" loop>
+    <audio id="bgm" loop preload="none">
         <source src="src/assets/audios/egyptian_duel.mp3" type="audio/mp3" />
     </audio>
 
     <div class="bg-video">
-        <video class="video" autoplay loop muted>
+        <video class="video" autoplay loop muted preload="none" poster="src/assets/img/video_thumb.png">
             <source src="src/assets/video/yugi.mp4" type="video/mp4">
         </video>
     </div>
@@ -55,7 +55,7 @@
                             <img id="player-field-card" height="180" width="125">
                         </div>
     
-                        <img id="millenium-eye" src="src/assets/icons/millenium2.png">
+                        <img id="millenium-eye" src="src/assets/icons/millenium2.png" loading="lazy" fetchpriority="high">
     
                         <div class="card-infield">
                             <img id="computer-field-card" height="180" width="125">
